@@ -1,0 +1,9 @@
+<GridContentWrapper :grid="grid">
+    <div v-loading="grid.loading">
+        <GridHeader :grid="grid"/>
+        <GridSearchRow :grid="grid" v-if="config.searchEnabled !== false"/>
+        <GridBody :grid="grid"/>
+        <GridSummarizer v-if="config.footerSummarizerEnabled" :grid="grid"/>
+        <GridFooter v-if="config.footerVisible ?? true" :grid="grid"/>
+    </div>
+</GridContentWrapper>
