@@ -33,23 +33,6 @@
             <el-option :value="item.value" v-for="item in searchConfig.values" :label="item.label"/>
         </el-select>
 
-        <GetRequest v-if="isType(GridSearchType.REMOTE)" :provider="searchConfig.provider" :url="searchConfig.url" v-slot="props">
-            <el-select
-                clearable
-                :class="{'form-control': !searchConfig.multiple, 'multiple-select-form': searchConfig.multiple}"
-                :multiple="searchConfig.multiple" @change="search()"
-                v-model="filterValue"
-                :disabled="disabled"
-            >
-                <el-option
-                    v-for="item in props.data"
-                    :key="item.id"
-                    :label="item.name"
-                    :value="searchConfig.field ? item[searchConfig.field] : item.id">
-                </el-option>
-            </el-select>
-        </GetRequest>
-
         <div v-if="showSearchIcon" class="form-control-feedback">
             <i class="icon-search4 text-size-base"></i>
         </div>
@@ -58,8 +41,8 @@
 
 <script setup lang="ts">
 import _ from "lodash"
-import {ref, watch, computed, onMounted, onUnmounted} from "vue"
-import {GridSearchType} from "../definition/enums"
+import {computed, onMounted, onUnmounted, ref, watch} from "vue"
+import type {GridSearchType} from "../types"
 import {EventEmitter} from "../utils/EventEmitter";
 
 const filterValue = ref<any>(null)
@@ -142,7 +125,7 @@ onMounted(() => {
         EventEmitter.on("grid-filter", onGridFilterChangedEvent)
     }
 
-     filterValue.value = props.modelValue
+    filterValue.value = props.modelValue
 })
 
 onUnmounted(() => {

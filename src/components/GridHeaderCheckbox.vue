@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import {GridStyler} from "../utils/GridStyler"
-import type {GridComponent, Row} from "../definition/types"
+import type {GridComponent, Row} from "../types/types"
 import {computed} from "vue"
 
 const props = defineProps<{

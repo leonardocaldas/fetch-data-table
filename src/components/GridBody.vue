@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import GridRow from "./GridRow.vue"
-import type {GridComponent} from "../definition/types"
+import type {GridComponent} from "../types/types"
 import {computed} from "vue"
 
 const props = defineProps<{
@@ -24,6 +24,7 @@ const rows = computed(() => props.grid.getRows())
 .empty-grid-placeholder {
     width: 100%;
     padding: 50px 0;
+    font-size: 13px;
     text-align: center;
     border-top: 1px solid #ddd;
     background: #fdfdfd;

@@ -1,17 +1,30 @@
-import type {GridComponent, Row} from "../definition/types"
+import type {GridComponent, Row} from "../types/types"
 
 export class RadioButtonSelectedMapper {
     static map(row: Row, grid: GridComponent) {
         if (grid._selectedRadioRow) {
-            const uuidMatches = row._uuid == grid._selectedRadioRow._uuid
-            const idMatches = row.id == grid._selectedRadioRow.id
+            const uuidMatches: boolean = row._uuid == grid._selectedRadioRow._uuid
 
-            if (uuidMatches || idMatches) {
+            if (uuidMatches || this._idMatches(row, grid)) {
                 row._isRadioChecked = true;
             }
-
         }
 
         return row;
+    }
+
+    static _idMatches(row: Row, grid: GridComponent): boolean {
+        if (!grid._selectedRadioRow) {
+            return false
+        }
+
+        if (typeof grid.config.uniqueKeyIdentifier == 'string') {
+            const uniqueKey = grid.config.uniqueKeyIdentifier
+            return row[uniqueKey] == grid._selectedRadioRow[uniqueKey]
+        } else if (typeof grid.config.uniqueKeyIdentifier == 'function') {
+            return grid.config.uniqueKeyIdentifier(row) == grid.config.uniqueKeyIdentifier(grid._selectedRadioRow)
+        }
+
+        return row.id == grid._selectedRadioRow.id
     }
 }

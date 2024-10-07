@@ -1,11 +1,11 @@
 import type {App} from "vue";
-import DynaGrid from "./SparkGrid.vue";
-import type {InstallOptions} from "./definition/install";
+import SparkGridComponent from "./SparkGrid.vue";
+import type {InstallOptions} from "./types";
 import {EventEmitter} from "./utils/EventEmitter";
 
-export const DataTable: any = {
+export const SparkGrid: any = {
     install(app: App, options: InstallOptions) {
-        app.component("SparkGrid", DynaGrid)
+        app.component("SparkGrid", SparkGridComponent)
         EventEmitter.eventProxy = options.eventProxy
     }
 }

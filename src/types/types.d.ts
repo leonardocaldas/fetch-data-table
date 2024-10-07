@@ -1,6 +1,6 @@
 import type {Component} from "@vue/runtime-core"
-import {GridColumnType, GridSearchType} from "./enums"
 import {ComponentPublicInstance} from "@vue/runtime-core";
+import type {GridColumnType, GridSearchType} from "../types"
 
 export type OrderBy = {
     name: string,
@@ -28,12 +28,13 @@ export type OnRowEvent = (row: Row, grid: GridComponent) => void
 export type OnCellEvent = (value: any, column: Column, row: Row, grid: GridComponent) => any
 export type OnContextMenu = (value: any, column: Column, row: Row, grid: GridComponent) => ContextMenItem[]
 export type OnBeforeRowMounted = (row: Row, grid: GridComponent) => Row
-export type OnBeforeCellRendered = (value: any, row: Row, grid: GridComponent) => CellContent
-export type OnBeforeHeaderRendered = (value: any, grid: GridComponent) => CellContent
+export type OnValueGetter = (value: any, row: Row, grid: GridComponent) => CellContent
+export type OnHeaderContentGetter = (value: any, grid: GridComponent) => CellContent
 export type OnBeforeCellMounted = (value: CellContent, column: Column, row: Row, grid: GridComponent) => CellContent
 export type OnBeforeHeaderCellMounted = (column: Column, grid: GridComponent) => CellContent
 export type OnBeforeCellStyleMounted = (value: CellContent, column: Column, row: Row, grid: GridComponent) => { [key: string]: any }
 export type OnBeforeColumnStyleMounted = (value: CellContent, row: Row, grid: GridComponent) => { [key: string]: any }
+export type OnVisibleCheck = () => boolean
 
 export type Column = {
     _uuid?: string,
@@ -47,12 +48,13 @@ export type Column = {
     searchType?: GridSearchType,
     searchConfig?: { [key: string]: any },
     searchTypeRenderer?: () => Component,
-    onBeforeCellHeaderRendered?: OnBeforeHeaderRendered,
-    onBeforeCellContentRendered?: OnBeforeCellRendered,
+    headerContentGetter?: OnHeaderContentGetter,
+    valueGetter?: OnValueGetter,
     onBeforeColumnStyleMounted?: OnBeforeColumnStyleMounted,
     orderByEnabled?: boolean,
     searchEnabled?: boolean,
     isCreatedDynamically?: boolean,
+    visible?: OnVisibleCheck,
     summarizerValueGetter?: (value: any, row: Row) => number,
     summarizerValueFormatter?: (value: any) => any,
     metadata?: { [key: string]: any }
@@ -65,10 +67,11 @@ export type Action = {
 }
 
 export type ComputedColumn = () => Column[]
+export type UniqueKeyIdentifier = (row: Row) => string
 
 export type SparkGridConfig = {
     url?: string | function,
-    datasource: (params: any) => any[],
+    datasource?: (params: any) => any[],
     height?: number,
     rowsPerPage?: number,
     cellMinWidth?: number | string,
@@ -111,6 +114,7 @@ export type SparkGridConfig = {
     onClickCell?: OnCellEvent,
     onDoubleClickCell?: OnCellEvent,
     onContextMenu?: OnContextMenu,
+    uniqueKeyIdentifier?: string | UniqueKeyIdentifier,
 }
 
 export type Row = {

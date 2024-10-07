@@ -1,0 +1,284 @@
+.spark-grid {
+    font-family: "Figtree", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+
+    .context-menu-open {
+        background-color: #e4ebff !important;
+    }
+
+    .grid-wrapper {
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    .grid-body > .grid-row {
+        display: flex;
+    }
+
+    .grid-body {
+        z-index: 0;
+        position: relative;
+
+        .grid-row:last-child .grid-cell {
+            border-bottom: 1px solid #ddd;
+        }
+    }
+
+    .grid-row-focused .grid-cell {
+        background: rgb(232, 245, 233) !important;
+    }
+
+    .grid-row-checked .grid-cell {
+        background: rgb(232, 238, 245) !important;
+    }
+
+    .grid-cell-focused {
+        border: 1px solid black !important;
+    }
+
+    .grid-cell {
+        border: 1px solid transparent;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-collapse: collapse;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        font-size: 12px;
+
+        &.grid-cell-center-alignment {
+            justify-content: center;
+        }
+
+        &.grid-cell-left-alignment {
+            justify-content: start;
+        }
+
+        &.grid-cell-right-alignment {
+            justify-content: end;
+        }
+
+        &:first-child {
+            border-left: 1px solid transparent;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ddd;
+        }
+    }
+
+    .grid-cell .cell-has-comment {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #36585e;
+        top: -1px;
+        position: absolute;
+        right: -7px;
+        transform: rotate(225deg);
+    }
+
+    .grid-footer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px 10px;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        background: #e9edf1;
+        font-size: 12px;
+
+        .spark-grid-pages ul {
+            float: right;
+
+            li:not(.current):hover button:enabled {
+                background-color: #ddd !important;
+            }
+        }
+
+        & > * {
+            flex: 1;
+        }
+
+        ul {
+            display: inline-block;
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+
+            li {
+                display: inline-block;
+
+                & > button {
+                    padding: 5px;
+                    min-width: 30px;
+                    margin-left: 2px;
+                    text-align: center;
+                    text-decoration: none;
+                    background: transparent;
+                    cursor: pointer;
+                    color: #333;
+                    border: 1px solid transparent;
+                    border-radius: 3px;
+                }
+
+                & > button[disabled] {
+                    color: #ccc;
+                    cursor: default;
+                }
+
+                &.current > button {
+                    color: #fff;
+                    background-color: #455a64;
+                    cursor: default;
+                }
+            }
+
+            li:not(.current):hover > button:not([disabled]) {
+                background-color: #f5f5f5;
+            }
+        }
+    }
+
+    .grid-search-row {
+        z-index: 0;
+        display: flex;
+    }
+
+    .grid-search-row .grid-search-row-cell {
+        background: white;
+        border: 1px solid transparent;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-collapse: collapse;
+        padding: 10px;
+
+        input, select {
+            z-index: 0 !important;
+        }
+
+        &:first-child {
+            border-left: 1px solid transparent;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ddd;
+        }
+    }
+
+    .grid-search-row .has-feedback.has-feedback-left > .el-input input {
+        padding-left: 33px;
+        padding-right: 0 !important;
+    }
+
+    .input-wrapper {
+        position: relative;
+    }
+
+    .clear-input {
+        cursor: pointer;
+    }
+
+    .grid-header {
+        display: flex;
+
+        .grid-header-cell {
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid transparent;
+            border-collapse: collapse;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #e9edf1;
+            font-weight: 600;
+            border-bottom: 1px solid #bbb;
+            font-size: 12px;
+            padding: 8px 10px;
+
+            .fa-solid.fa-sort {
+                color: #d9dfe3;
+            }
+
+            &.grid-header-order {
+                cursor: pointer;
+
+                &:hover {
+                    background: #d4dce5;
+
+                    .fa-solid.fa-sort {
+                        color: black !important;
+                    }
+                }
+            }
+
+            &.grid-cell-center-alignment {
+                justify-content: center;
+            }
+
+            &.grid-cell-left-alignment {
+                justify-content: start;
+            }
+
+            &.grid-cell-right-alignment {
+                justify-content: end;
+            }
+
+            &:first-child {
+                border-left: 1px solid transparent;
+            }
+
+            &:last-child {
+                border-right: 1px solid #ddd;
+            }
+        }
+    }
+
+    .grid-summarizer-cell {
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-collapse: collapse;
+        display: flex;
+        align-items: center;
+        background: #ededed;
+        font-weight: 600;
+        border-bottom: 1px solid #bbb;
+
+        &.grid-cell-center-alignment {
+            justify-content: center;
+        }
+
+        &.grid-cell-left-alignment {
+            justify-content: start;
+        }
+
+        &.grid-cell-right-alignment {
+            justify-content: end;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ddd;
+        }
+    }
+
+    .grid-header-sticky {
+        position: sticky;
+        top: 0;
+        z-index: 200;
+    }
+
+    .grid-summarizer-sticky {
+        position: sticky;
+        bottom: 0;
+        z-index: 200;
+    }
+}

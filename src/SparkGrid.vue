@@ -1,3 +1,3 @@
-<template src="./assets/DataTable.html"/>
-<script lang="ts" src="./assets/DataTable.ts"/>
-<style src="./assets/DataTable.scss" lang="scss"/>
+<template src="./assets/SparkGrid.html"/>
+<script lang="ts" src="./assets/SparkGrid.ts"/>
+<style src="./assets/SparkGrid.scss" lang="scss"/>

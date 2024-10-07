@@ -1,19 +1,36 @@
 {
+    "include": [
+        "vite.config.*",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue"
+    ],
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Node",
         "strict": true,
         "jsx": "preserve",
+        // Keeps JSX as it is, which is usually good for Vue projects with JSX
         "esModuleInterop": true,
+        // Enables default imports from CJS modules
         "skipLibCheck": true,
+        // Skips checking types of all declaration files, helps speed up
         "forceConsistentCasingInFileNames": true,
+        // Prevents inconsistent casing issues
         "declaration": true,
-        "declarationDir": "dist/types",
-        "emitDeclarationOnly": true,
-        "outDir": "dist"
-    },
-    "include": [
-        "src"
-    ]
+        // Generates declaration files
+        "declarationDir": "dist",
+        // Specifies where declaration files should be output
+        "emitDeclarationOnly": false,
+        // Only emits the declaration files without the JavaScript output
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    }
 }

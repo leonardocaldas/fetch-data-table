@@ -1,4 +1,4 @@
-import type {Row} from "../definition/types"
+import type {Row} from "../types/types"
 // @ts-ignore
 import {v4 as uuidV4} from "uuid"
 

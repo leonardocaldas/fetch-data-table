@@ -5,7 +5,7 @@ import GridBody from "../components/GridBody.vue"
 import GridContentWrapper from "../components/GridContentWrapper.vue"
 import GridSummarizer from "../components/GridSummarizer.vue"
 import type {Component} from "@vue/runtime-core"
-import type {SparkGridConfig, Props} from "../definition/types"
+import type {Props, SparkGridConfig} from "../types"
 import {DataFetcher} from "../utils/DataFetcher"
 import {EventHandler} from "../utils/EventHandler"
 // @ts-ignore

@@ -1,4 +1,4 @@
-import type {Row, GridComponent} from "../definition/types"
+import type {Row, GridComponent} from "../types/types"
 
 export class CheckboxSelectedMapper {
     static map(row: Row, grid: GridComponent) {

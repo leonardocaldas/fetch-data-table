@@ -1,9 +1,9 @@
 <template>
     <div class="grid-footer">
-        <div class="left">
+        <div class="spark-grid-pages">
             <div>
-                <div v-show="isRowsPerPageVisible" style="display: inline-block;" class="mr-xs">Por página:</div>
-                <div v-show="isRowsPerPageVisible" style="width: 80px; display: inline-block;" class="mr-xs">
+                <div v-show="isRowsPerPageVisible" class="spark-grid__page-details">Por página:</div>
+                <div v-show="isRowsPerPageVisible" class="spark-grid__select">
                     <el-select :model-value="grid.rowsPerPage" @update:modelValue="rowsPerPageChanged">
                         <el-option :value="10" label="10"/>
                         <el-option :value="25" label="25"/>
@@ -23,18 +23,20 @@
                 </span>
             </div>
         </div>
-        <div class="right">
+
+        <div class="spark-grid-pages">
             <ul>
                 <li>
                     <button @click="paginate(grid.currentPage - 1)" type="button" :disabled="!hasPreviousPage()">
-                        <i class="icon-arrow-left5"></i></button>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
                 </li>
                 <li :class="{'current': i === grid.currentPage}" :key="i" v-for="i in pagination()">
                     <button :disabled="i === grid.currentPage" @click="paginate(i)" type="button">{{ i }}</button>
                 </li>
                 <li>
                     <button @click="paginate(grid.currentPage + 1)" :disabled="!hasNextPage()" type="button">
-                        <i class="icon-arrow-right5"></i>
+                        <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </li>
             </ul>
@@ -43,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import type {GridComponent} from "../definition/types"
+import type {GridComponent} from "../types"
 import {computed} from "vue"
 
 const props = defineProps<{ grid: GridComponent }>()
@@ -94,3 +96,22 @@ const rowsPerPageChanged = (rowsPerPage: number) => props.grid.paginate(props.gr
 
 const isRowsPerPageVisible = computed(() => props.grid.config.isRowsPerPageVisible ?? true)
 </script>
+
+<style scoped lang="scss">
+.spark-grid__page-details {
+    display: inline-block;
+}
+
+.spark-grid__select {
+    width: 80px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.spark-grid-icon-arrow-left {
+    &:before {
+        content: "\f053";
+    }
+}
+</style>

@@ -1,5 +1,5 @@
-import type {GridComponent} from "../definition/types"
-import type {EventProxy, EventReceived} from "../definition/install";
+import type {GridComponent} from "../types/types"
+import type {EventProxy, EventReceived} from "../types/install";
 
 export class EventEmitter {
     static eventProxy: EventProxy|null|undefined = null;

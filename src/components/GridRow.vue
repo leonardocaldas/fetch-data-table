@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import GridCheckbox from "./GridCheckbox.vue"
 import RuntimeRenderer from "./RuntimeRenderer.vue"
-import type {Column, GridComponent, Row} from "../definition/types"
+import type {Column, GridComponent, Row} from "../types/types"
 import {GridStyler} from "../utils/GridStyler"
 import {computed, onUnmounted} from "vue"
 import {CellValueGetter} from "../utils/CellValueGetter"

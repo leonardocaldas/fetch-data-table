@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import type {GridComponent, Column} from "../definition/types"
+import type {Column, GridComponent} from "../types/types"
 import {GridStyler} from "../utils/GridStyler"
 import RuntimeRenderer from "../components/RuntimeRenderer.vue"
 

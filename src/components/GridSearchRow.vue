@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-row grid-search-row flex">
+    <div class="grid-row grid-search-row">
         <div class="grid-search-row-cell" v-if="props.grid.config.checkboxEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
         <div class="grid-search-row-cell" v-if="props.grid.config.radioButtonSelectionEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
 
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type {GridComponent, Column} from "../definition/types"
+import type {GridComponent, Column} from "../types/types"
 import GridSearchField from "./GridSearchField.vue"
 import {computed} from "vue"
 import {GridStyler} from "../utils/GridStyler"

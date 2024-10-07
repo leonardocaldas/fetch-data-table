@@ -1,10 +1,10 @@
-import type {Column, GridComponent, OrderBy, Row} from "../definition/types"
+import type {Column, GridComponent, OrderBy, Row} from "../types"
+import {GridColumnType} from "../types"
 import {UuidMapper} from "./UuidMapper"
 // @ts-ignore
 import {v4 as uuid} from "uuid"
 import {isEmpty} from "./Conditionals"
 import {CheckboxSelectedMapper} from "./CheckboxSelectedMapper"
-import {GridColumnType} from "../definition/enums"
 // @ts-ignore
 import getValue from 'get-value'
 import type {ComponentPublicInstance} from "@vue/runtime-core";
@@ -54,22 +54,32 @@ export class EventHandler {
             columns = columns()
         }
 
-        return columns.map((col: Column) => {
-            return {
-                _uuid: uuid(),
-                ...col,
-            }
-        })
+        return columns
+            .filter((column: Column) => {
+                if (typeof column.visible == "function") {
+                    return column.visible();
+                }
+
+                return true;
+            })
+            .map((col: Column) => {
+                return {
+                    _uuid: uuid(),
+                    ...col,
+                }
+            })
     }
 
     static applyFilter(this: GridComponent, column: Column, value: any): void {
         this.setFilter(column.filterName || column.name, value)
+        this.currentPage = 1
         this.fetch()
     }
 
     static setFilter(this: GridComponent & ComponentPublicInstance, name: string, value: any): void {
         value = isEmpty(value) ? "" : value
         this.filters[name] = value
+        this.currentPage = 1
         EventEmitter.emit(this, "grid-filter", {name: name, value, uuid: this.uuid})
     }
 

@@ -1,4 +1,4 @@
-import type {Column, GridComponent} from "../definition/types"
+import type {Column, GridComponent} from "../types/types"
 
 export class GridStyler {
     static getCheckboxColumnStyles(): object {

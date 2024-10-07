@@ -1,4 +1,4 @@
-type EventReceived = (data: any) => void;
+export type EventReceived = (data: any) => void;
 
 export type EventProxy = {
     emit: (name: string, data: any) => void,

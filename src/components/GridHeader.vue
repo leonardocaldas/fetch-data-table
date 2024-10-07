@@ -1,5 +1,5 @@
 <template>
-    <div class="flex grid-header" :class="{'grid-header-sticky': grid.config.stickyHeaderEnabled}">
+    <div class="grid-header" :class="{'grid-header-sticky': grid.config.stickyHeaderEnabled}">
         <div class="grid-header-cell" v-if="props.grid.config.checkboxEnabled" :style="GridStyler.getCheckboxColumnStyles()">
             <GridHeaderCheckbox :grid="grid"/>
         </div>
@@ -19,11 +19,15 @@
             <RuntimeRenderer :content="columnContent(column)"/>
 
             <span v-if="isAscending(column.name)">
-                <i class="icon-arrow-up12"></i>
+                <i class="fa-solid fa-sort-up"></i>
             </span>
 
-            <span v-if="isDescending(column.name)">
-                <i class="icon-arrow-down12"></i>
+            <span v-else-if="isDescending(column.name)">
+                <i class="fa-solid fa-sort-down"></i>
+            </span>
+
+            <span v-else>
+                <i class="fa-solid fa-sort"></i>
             </span>
         </div>
 
@@ -35,7 +39,7 @@
 import RuntimeRenderer from "./RuntimeRenderer.vue"
 import GridHeaderCheckbox from "./GridHeaderCheckbox.vue"
 import {GridStyler} from "../utils/GridStyler"
-import type {Column, GridComponent} from "../definition/types"
+import type {Column, GridComponent} from "../types/types"
 import {computed} from "vue"
 
 const props = defineProps<{ grid: GridComponent }>()
@@ -62,10 +66,14 @@ const columnContent = (column: Column) => {
         label = props.grid.config.onBeforeHeaderCellMounted(column, props.grid)
     }
 
-    if (column.onBeforeCellHeaderRendered) {
-        label = column.onBeforeCellHeaderRendered(label, props.grid)
+    if (column.headerContentGetter) {
+        label = column.headerContentGetter(label, props.grid)
     }
 
     return label ?? column.label
 }
 </script>
+
+<style scoped>
+
+</style>

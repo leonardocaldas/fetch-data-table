@@ -1,4 +1,4 @@
-import type {Row, Column, GridComponent} from "../definition/types"
+import type {Row, Column, GridComponent} from "../types/types"
 // @ts-ignore
 import getValue from 'get-value'
 
@@ -7,8 +7,8 @@ export class CellValueGetter {
         return () => {
             let value = getValue(row, column.name)
 
-            if (column.onBeforeCellContentRendered) {
-                value = column.onBeforeCellContentRendered(value, row, grid)
+            if (column.valueGetter) {
+                value = column.valueGetter(value, row, grid)
             }
 
             if (grid.config.onBeforeCellMounted) {

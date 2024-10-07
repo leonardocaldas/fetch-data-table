@@ -1,4 +1,4 @@
-import type {GridComponent} from "../definition/types"
+import type {GridComponent} from "../types/types"
 
 export class UrlBuilder {
     static getParams(grid: GridComponent): any {

@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import {GridStyler} from "../utils/GridStyler"
-import type {Row} from "../definition/types"
+import type {Row} from "../types/types"
 
 const props = defineProps<{
     row: Row,
