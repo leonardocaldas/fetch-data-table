@@ -1,5 +1,5 @@
 import type {Column, GridComponent, OrderBy, Row} from "../types"
-import {GridColumnType} from "../types"
+import {GridColumnType} from ".."
 import {UuidMapper} from "./UuidMapper"
 // @ts-ignore
 import {v4 as uuid} from "uuid"
@@ -38,7 +38,7 @@ export class EventHandler {
     }
 
     static getCheckedRows(this: GridComponent): Row[] {
-        return this.rows.filter((row: Row) => row._isChecked);
+        return this.rows.filter((row: Row) => Boolean(row._isChecked));
     }
 
     static clearCheckedRows(this: GridComponent): void {
@@ -56,8 +56,8 @@ export class EventHandler {
 
         return columns
             .filter((column: Column) => {
-                if (typeof column.visible == "function") {
-                    return column.visible();
+                if (typeof column.isVisible == "function") {
+                    return column.isVisible();
                 }
 
                 return true;

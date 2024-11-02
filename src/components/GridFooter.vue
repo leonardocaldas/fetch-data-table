@@ -1,30 +1,30 @@
 <template>
     <div class="grid-footer">
         <div class="spark-grid-pages">
-            <div>
-                <div v-show="isRowsPerPageVisible" class="spark-grid__page-details">Por página:</div>
-                <div v-show="isRowsPerPageVisible" class="spark-grid__select">
-                    <el-select :model-value="grid.rowsPerPage" @update:modelValue="rowsPerPageChanged">
-                        <el-option :value="10" label="10"/>
-                        <el-option :value="25" label="25"/>
-                        <el-option :value="50" label="50"/>
-                        <el-option :value="100" label="100"/>
-                        <el-option :value="150" label="150"/>
-                        <el-option :value="200" label="200"/>
-                        <el-option :value="250" label="250"/>
-                        <el-option :value="500" label="500"/>
-                        <el-option :value="1000" label="1000"/>
-                        <el-option :value="2500" label="2500"/>
-                    </el-select>
-                </div>
-
-                <span v-show="grid.totalRows > 0">
-                    Exibindo {{ beginningRows() }} a {{ endingRows() }} de {{ grid.totalRows }} registro(s)
-                </span>
+            <div v-show="isRowsPerPageVisible" class="spark-grid__page-details">Por página:</div>
+            <div v-show="isRowsPerPageVisible" class="spark-grid__select">
+                <el-select :model-value="grid.rowsPerPage" @update:modelValue="rowsPerPageChanged">
+                    <el-option :value="10" label="10"/>
+                    <el-option :value="25" label="25"/>
+                    <el-option :value="50" label="50"/>
+                    <el-option :value="100" label="100"/>
+                    <el-option :value="150" label="150"/>
+                    <el-option :value="200" label="200"/>
+                    <el-option :value="250" label="250"/>
+                    <el-option :value="500" label="500"/>
+                    <el-option :value="1000" label="1000"/>
+                    <el-option :value="2500" label="2500"/>
+                </el-select>
             </div>
-        </div>
 
-        <div class="spark-grid-pages">
+            <span v-show="grid.totalRows > 0">
+                Exibindo {{ beginningRows() }} a {{ endingRows() }} de {{ grid.totalRows }} registro(s)
+            </span>
+
+            <span class="spark-grid-selected-rows">
+                <span v-if="selectedRowsLength > 0">{{ selectedRowsLength }} registro(s) selecionado(s)</span>
+            </span>
+
             <ul>
                 <li>
                     <button @click="paginate(grid.currentPage - 1)" type="button" :disabled="!hasPreviousPage()">
@@ -95,9 +95,16 @@ const paginate = (page: number) => props.grid.paginate(page, props.grid.rowsPerP
 const rowsPerPageChanged = (rowsPerPage: number) => props.grid.paginate(props.grid.currentPage, rowsPerPage)
 
 const isRowsPerPageVisible = computed(() => props.grid.config.isRowsPerPageVisible ?? true)
+
+const selectedRowsLength = computed(() => props.grid.getCheckedRows().length)
 </script>
 
 <style scoped lang="scss">
+.spark-grid-pages {
+    display: flex;
+    align-items: center;
+}
+
 .spark-grid__page-details {
     display: inline-block;
 }
@@ -113,5 +120,13 @@ const isRowsPerPageVisible = computed(() => props.grid.config.isRowsPerPageVisib
     &:before {
         content: "\f053";
     }
+}
+
+.spark-grid-selected-rows {
+    margin-left: 25px;
+    flex: 1;
+    text-align: center;
+    color: royalblue;
+    font-weight: bold;
 }
 </style>

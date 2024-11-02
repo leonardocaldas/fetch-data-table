@@ -1,6 +1,6 @@
 {
     "name": "spark-grid-vue3",
-    "version": "0.0.23",
+    "version": "0.0.35",
     "description": "",
     "files": [
         "src"
@@ -34,7 +34,6 @@
         "axios": "^1.7.7",
         "get-value": "^3.0.1",
         "lodash": "^4.17.21",
-        "uuid": "^10.0.0",
-        "element-plus": "^2.2.20"
+        "uuid": "^10.0.0"
     }
 }

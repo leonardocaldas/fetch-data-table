@@ -30,7 +30,7 @@
             class="form-control pr-sm"
             @change="search()"
         >
-            <el-option :value="item.value" v-for="item in searchConfig.values" :label="item.label"/>
+            <el-option :value="item.value" v-for="item in filterListValues" :label="item.label"/>
         </el-select>
 
         <div v-if="showSearchIcon" class="form-control-feedback">
@@ -42,10 +42,12 @@
 <script setup lang="ts">
 import _ from "lodash"
 import {computed, onMounted, onUnmounted, ref, watch} from "vue"
-import type {GridSearchType} from "../types"
+import {GridSearchType} from "../types/enum"
 import {EventEmitter} from "../utils/EventEmitter";
+import {SearchConfigListValue} from "@/types";
 
 const filterValue = ref<any>(null)
+const filterListValues = ref<SearchConfigListValue[]>([])
 
 const emits = defineEmits(['change'])
 
@@ -53,7 +55,7 @@ const props = defineProps<{
     type?: GridSearchType,
     emitsEvents?: boolean,
     disabled?: boolean,
-    searchConfig?: object,
+    searchConfig?: () => SearchConfigListValue[] | Promise<SearchConfigListValue[]>,
     uuid?: string,
     name?: string,
     modelValue?: any
@@ -97,11 +99,6 @@ const dateType = computed(() => {
 
 const isType = (type: GridSearchType) => props.type === type
 
-const clear = () => {
-    filterValue.value = null
-    emits('change', null)
-}
-
 const search = () => {
     let value = filterValue.value
 
@@ -120,12 +117,25 @@ const onGridFilterChangedEvent = (data: any) => {
     }
 }
 
+const loadSearchConfig = async () => {
+    if (props.searchConfig) {
+        let promise: any = props.searchConfig();
+
+        if (promise && typeof promise.then === 'function' && promise[Symbol.toStringTag] === 'Promise') {
+            filterListValues.value = await promise
+        } else {
+            filterListValues.value = promise
+        }
+    }
+}
+
 onMounted(() => {
     if (props.emitsEvents) {
         EventEmitter.on("grid-filter", onGridFilterChangedEvent)
     }
 
     filterValue.value = props.modelValue
+    loadSearchConfig()
 })
 
 onUnmounted(() => {

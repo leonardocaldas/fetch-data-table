@@ -1,4 +1,4 @@
-export enum GridSearchType {
+export const enum GridSearchType {
     DATE = "DATE",
     DATE_MONTH = "DATE_MONTH",
     REMOTE = "REMOTE",
@@ -8,7 +8,7 @@ export enum GridSearchType {
     COMPONENT = "COMPONENT"
 }
 
-export enum GridColumnType {
+export const enum GridColumnType {
     TEXT = "TEXT",
     NUMBER = "NUMBER",
     PERCENTAGE = "PERCENTAGE",

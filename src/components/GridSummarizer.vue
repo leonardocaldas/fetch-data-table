@@ -1,7 +1,7 @@
 <template>
     <div class="flex grid-summarizer" :class="{'grid-summarizer-sticky': grid.config.stickyHeaderEnabled}">
-        <div class="grid-header-cell" v-if="props.grid.config.checkboxEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
-        <div class="grid-header-cell" v-if="props.grid.config.radioButtonSelectionEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
+        <div class="grid-summarizer-cell" v-if="props.grid.config.checkboxEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
+        <div class="grid-summarizer-cell" v-if="props.grid.config.radioButtonSelectionEnabled" :style="GridStyler.getCheckboxColumnStyles()"></div>
 
         <div class="grid-summarizer-cell"
              v-for="column in grid.getColumns()"

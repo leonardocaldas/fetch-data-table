@@ -34,13 +34,14 @@
             />
         </div>
 
-        <!--        <GridAction :grid="[$attrs, $props]" :row="row" v-if="props.grid.config.actions"/>-->
+        <GridAction :grid="props.grid" :row="row" v-if="props.grid.config.actions"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import GridCheckbox from "./GridCheckbox.vue"
 import RuntimeRenderer from "./RuntimeRenderer.vue"
+import GridAction from "./GridAction.vue"
 import type {Column, GridComponent, Row} from "../types/types"
 import {GridStyler} from "../utils/GridStyler"
 import {computed, onUnmounted} from "vue"

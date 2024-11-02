@@ -19,6 +19,11 @@
             />
         </div>
 
+        <div
+            :style="GridStyler.getActionRowColumn(props.grid)"
+            v-if="props.grid.config.actions"
+            class="grid-search-row-cell"></div>
+
         <!--        <th v-if="hasActions" class="text-center"></th>-->
     </div>
 </template>

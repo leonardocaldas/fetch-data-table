@@ -31,7 +31,12 @@
             </span>
         </div>
 
-        <div v-if="props.grid.config.actions" class="text-center">Ações</div>
+        <div
+            :style="GridStyler.getActionRowColumn(props.grid)"
+            v-if="props.grid.config.actions"
+            class="text-center grid-header-cell">
+            Ações
+        </div>
     </div>
 </template>
 

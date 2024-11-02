@@ -41,6 +41,12 @@ export class DataFetcher {
         }
 
         const url: string = await UrlBuilder.getUrl(this)
-        return await Axios.get(url, {params: UrlBuilder.getParams(this)})
+        const response: any = await Axios.get(url, {params: UrlBuilder.getParams(this)})
+
+        if (response.config && response.data && response.headers) {
+            return response.data
+        }
+
+        return response
     }
 }

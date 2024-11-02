@@ -57,10 +57,30 @@ export class GridStyler {
         return GridStyler.getColumnStyle(column, grid)
     }
 
+    static getActionRowColumn(grid: GridComponent): object {
+        const width = grid.config.actionsWidth ?? "60px";
+
+        return {
+            "width": width,
+            "min-width": width,
+            "max-width": width,
+            "flex-basis": width,
+            "justify-content": "center",
+            "padding": "10px",
+            "text-align": "center"
+        }
+    }
+
     static calculateColumnWidth(grid: GridComponent): string {
-        const columnsCount = grid.getColumns()
+        let columnsCount = grid.getColumns()
             .filter((c: Column) => !c.width)
             .length
+        let actionsWidth: number = 0
+
+        if (grid.config.actions) {
+            columnsCount += 1;
+            actionsWidth = parseInt((grid.config.actionsWidth ?? 60).toString().replace(/\D/g, ""));
+        }
 
         const totalWidthPixels = grid.getColumns()
             .filter((c: Column) => c.width && c.width.toString().includes("px"))
@@ -72,7 +92,7 @@ export class GridStyler {
             .map((c: Column) => parseInt(c.width!.toString().replace("%", "")))
             .reduce((a: number, b: number) => a + b, 0)
 
-        const dividedWidthPixels = totalWidthPixels / columnsCount
+        const dividedWidthPixels = (totalWidthPixels + actionsWidth) / columnsCount
         const baseWidthPercentage = parseFloat(((100 - totalWidthPercentage) / columnsCount).toFixed(4))
 
         return `calc(${baseWidthPercentage}% - ${dividedWidthPixels}px)`

@@ -1,6 +1,5 @@
 import type {Component} from "@vue/runtime-core"
 import {ComponentPublicInstance} from "@vue/runtime-core";
-import type {GridColumnType, GridSearchType} from "../types"
 
 export type OrderBy = {
     name: string,
@@ -19,6 +18,9 @@ export type ContextMenItem = {
     icon?: Component,
 }
 
+export type GridSearchTypeDefinition = "DATE" | "DATE_MONTH" | "REMOTE" | "LIST" | "DATE_RANGE" | "BOOLEAN" | "COMPONENT"
+export type GridColumnTypeDefinition = "TEXT" | "NUMBER" | "PERCENTAGE" | "CURRENCY"
+
 export type CellContent = number | string | Component | null
 
 export type OnRequestFinished = (response: any, grid: GridComponent) => void
@@ -35,18 +37,24 @@ export type OnBeforeHeaderCellMounted = (column: Column, grid: GridComponent) =>
 export type OnBeforeCellStyleMounted = (value: CellContent, column: Column, row: Row, grid: GridComponent) => { [key: string]: any }
 export type OnBeforeColumnStyleMounted = (value: CellContent, row: Row, grid: GridComponent) => { [key: string]: any }
 export type OnVisibleCheck = () => boolean
+export type OnVisibleActionCheck = (row: Row) => boolean
+
+export type SearchConfigListValue = {
+    value: any,
+    label: string
+};
 
 export type Column = {
     _uuid?: string,
     _hasFocus?: boolean,
     name: string,
-    type?: GridColumnType,
+    type?: GridColumnTypeDefinition,
     label: string,
     width?: number | string,
     textAlignment?: 'center' | 'left' | 'right',
     filterName?: string,
-    searchType?: GridSearchType,
-    searchConfig?: { [key: string]: any },
+    searchType?: GridSearchTypeDefinition,
+    searchConfig?: () => SearchConfigListValue[] | Promise<SearchConfigListValue[]>,
     searchTypeRenderer?: () => Component,
     headerContentGetter?: OnHeaderContentGetter,
     valueGetter?: OnValueGetter,
@@ -54,16 +62,15 @@ export type Column = {
     orderByEnabled?: boolean,
     searchEnabled?: boolean,
     isCreatedDynamically?: boolean,
-    visible?: OnVisibleCheck,
+    isVisible?: OnVisibleCheck,
     summarizerValueGetter?: (value: any, row: Row) => number,
     summarizerValueFormatter?: (value: any) => any,
     metadata?: { [key: string]: any }
 }
 
 export type Action = {
-    icon: string,
-    action: (row: Row, grid: GridComponent) => void,
-    class: string
+    element: (row: Row) => CellContent,
+    isVisible?: OnVisibleActionCheck,
 }
 
 export type ComputedColumn = () => Column[]
@@ -145,6 +152,7 @@ export type Methods = {
     fetch: () => void,
     setRows: (rows: Row[]) => Rows[],
     getRows: () => Rows[],
+    getCheckedRows: () => Rows[],
     getColumns: () => Column[],
     applyFilter: (column: Column, value: any) => void,
     applyOrderBy: (orderBy: OrderBy) => void,

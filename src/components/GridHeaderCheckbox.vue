@@ -36,6 +36,12 @@ const onChange = function (value: any) {
 
     props.grid.getRows().forEach((row: Row) => {
         row._isChecked = isNotChecked
+
+        if (row._isChecked) {
+            props.grid.config.onRowChecked && props.grid.config.onRowChecked(row, 'checkbox');
+        } else {
+            props.grid.config.onRowUnchecked && props.grid.config.onRowUnchecked(row, 'checkbox');
+        }
     })
 }
 </script>

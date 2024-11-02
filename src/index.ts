@@ -9,3 +9,5 @@ export const SparkGrid: any = {
         EventEmitter.eventProxy = options.eventProxy
     }
 }
+
+export * from "./types/enum"
