@@ -8,6 +8,7 @@
             :key="row._uuid"
             v-if="props.grid.config.checkboxEnabled"
             :row="row"
+            :disabled="props.grid.config.checkboxDisabled"
             @change="onRowChecked"
         />
 
@@ -144,17 +145,7 @@ const onRowChecked = (value: any) => {
 }
 
 const onRadioChecked = () => {
-    props.grid
-        .getRows()
-        .filter((row: Row) => row._isRadioChecked)
-        .forEach((row: Row) => {
-            row._isRadioChecked = false
-            props.grid.config.onRowUnchecked && props.grid.config.onRowUnchecked(row, 'radio')
-        })
-
-    props.grid.config.onRowChecked && props.grid.config.onRowChecked(props.row, 'radio')
-    props.grid._selectedRadioRow = props.row;
-    props.row._isRadioChecked = true
+    props.grid.setSelectedRadioRow(props.row)
 }
 
 function onRowFocused(event: any) {

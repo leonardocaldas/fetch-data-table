@@ -26,8 +26,9 @@
             v-if="isType(GridSearchType.LIST)"
             v-model="filterValue"
             clearable
+            :multiple="true"
             :disabled="disabled"
-            class="form-control pr-sm"
+            class="multiple-select-form pr-sm"
             @change="search()"
         >
             <el-option :value="item.value" v-for="item in filterListValues" :label="item.label"/>

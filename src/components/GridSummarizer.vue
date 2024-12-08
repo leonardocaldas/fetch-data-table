@@ -12,7 +12,10 @@
             <RuntimeRenderer :content="getSummarizedValue(column)"/>
         </div>
 
-        <div v-if="props.grid.config.actions" class="text-center"></div>
+        <div v-if="props.grid.config.actions"
+             :style="GridStyler.getActionRowColumn(props.grid)"
+             class="grid-summarizer-cell">
+        </div>
     </div>
 </template>
 

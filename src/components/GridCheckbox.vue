@@ -5,7 +5,7 @@
                 <input
                     type="checkbox"
                     :name="row._uuid"
-                    :disabled="disabled"
+                    :disabled="row._isCheckboxDisabled"
                     @input="emits('change', $event.target.value)"
                     class="styled"
                     :value="row._isChecked"
@@ -21,8 +21,7 @@ import {GridStyler} from "../utils/GridStyler"
 import type {Row} from "../types/types"
 
 const props = defineProps<{
-    row: Row,
-    disabled?: boolean
+    row: Row
 }>()
 
 const emits = defineEmits(['change'])

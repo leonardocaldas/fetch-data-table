@@ -6,6 +6,10 @@ export class CheckboxSelectedMapper {
             row._isChecked = grid.config.isRowChecked(row);
         }
 
+        if (typeof grid.config.isCheckboxDisabled == "function") {
+            row._isCheckboxDisabled = grid.config.isCheckboxDisabled(row);
+        }
+
         return row;
     }
 }

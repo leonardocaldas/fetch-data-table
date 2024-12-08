@@ -133,7 +133,12 @@ export class EventHandler {
     }
 
     static setSelectedRadioRow(this: GridComponent, row: Row): void {
+        this.clearRadioRowSelection()
+
+        this.config.onRowChecked && this.config.onRowChecked(row, 'radio')
+
         this._selectedRadioRow = row
+        row._isRadioChecked = true
     }
 
     static clearRadioRowSelection(this: GridComponent): void {

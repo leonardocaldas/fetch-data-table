@@ -26,6 +26,7 @@ export type CellContent = number | string | Component | null
 export type OnRequestFinished = (response: any, grid: GridComponent) => void
 export type OnRequestStarted = (grid: GridComponent) => void
 export type IsRowChecked = (row: Row) => boolean
+export type IsCheckboxDisabled = (row: Row) => boolean
 export type OnRowEvent = (row: Row, grid: GridComponent) => void
 export type OnCellEvent = (value: any, column: Column, row: Row, grid: GridComponent) => any
 export type OnContextMenu = (value: any, column: Column, row: Row, grid: GridComponent) => ContextMenItem[]
@@ -106,6 +107,7 @@ export type SparkGridConfig = {
     disableFilterWhenPresentOnInitialFilters?: boolean,
 
     isRowChecked?: IsRowChecked,
+    isCheckboxDisabled?: IsCheckboxDisabled,
     onRowChecked?: (row: Row, type: 'checkbox' | 'radio') => void,
     onRowUnchecked?: (row: Row, type: 'checkbox' | 'radio') => void,
     onRequestStarted?: OnRequestStarted,
@@ -128,6 +130,7 @@ export type Row = {
     _uuid?: string,
     _hasFocus?: boolean,
     _isChecked?: boolean,
+    _isCheckboxDisabled?: boolean,
     _isRadioChecked?: boolean,
     [key: string]: any
 }
