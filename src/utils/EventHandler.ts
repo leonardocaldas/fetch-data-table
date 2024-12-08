@@ -33,6 +33,10 @@ export class EventHandler {
         return rows
     }
 
+    static clearRows(this: GridComponent): void {
+        this.rows = []
+    }
+
     static getRows(this: GridComponent): Row[] {
         return this.rows
     }

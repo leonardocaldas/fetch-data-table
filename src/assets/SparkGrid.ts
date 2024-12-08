@@ -43,6 +43,7 @@ export default {
         fetch: DataFetcher.fetch,
         refresh: EventHandler.refresh,
         setRows: EventHandler.setRows,
+        clearRows: EventHandler.clearRows,
         getRows: EventHandler.getRows,
         getCheckedRows: EventHandler.getCheckedRows,
         clearCheckedRows: EventHandler.clearCheckedRows,

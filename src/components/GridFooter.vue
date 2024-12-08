@@ -21,7 +21,7 @@
                 Exibindo {{ beginningRows() }} a {{ endingRows() }} de {{ grid.totalRows }} registro(s)
             </span>
 
-            <span class="spark-grid-selected-rows">
+            <span class="spark-grid-selected-rows" v-if="grid.config.checkboxEnabled">
                 <span v-if="selectedRowsLength > 0">{{ selectedRowsLength }} registro(s) selecionado(s)</span>
             </span>
 
