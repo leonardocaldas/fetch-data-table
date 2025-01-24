@@ -37,6 +37,7 @@ export type OnHeaderContentGetter = (value: any, grid: GridComponent) => CellCon
 export type OnBeforeCellMounted = (value: CellContent, column: Column, row: Row, grid: GridComponent) => CellContent
 export type OnBeforeHeaderCellMounted = (column: Column, grid: GridComponent) => CellContent
 export type OnBeforeCellStyleMounted = (value: CellContent, column: Column, row: Row, grid: GridComponent) => { [key: string]: any }
+export type OnBeforeCheckboxAndRadioButtonStyleMounted = (row: Row, grid: GridComponent) => { [key: string]: any }
 export type OnBeforeColumnStyleMounted = (value: CellContent, row: Row, grid: GridComponent) => { [key: string]: any }
 export type OnVisibleCheck = () => boolean
 export type OnVisibleActionCheck = (row: Row) => boolean
@@ -118,6 +119,7 @@ export type SparkGridConfig = {
     onBeforeCellMounted?: OnBeforeCellMounted,
     onBeforeHeaderCellMounted?: OnBeforeHeaderCellMounted,
     onBeforeCellStyleMounted?: OnBeforeCellStyleMounted,
+    onBeforeCheckboxAndRadioButtonStyleMounted?: OnBeforeCheckboxAndRadioButtonStyleMounted,
     onClickRow?: OnRowEvent,
     onDoubleClickRow?: OnRowEvent,
     onCheckboxStateChanged?: OnRowEvent,
@@ -157,8 +159,13 @@ export type Methods = {
     fetch: () => void,
     setRows: (rows: Row[]) => Rows[],
     clearRows: () => void,
+    removeRow: (uuid: string) => void,
+    addRow: (row: Row) => void,
+    updateRow: (uuid: string, row: Row) => void,
     getRows: () => Rows[],
     getCheckedRows: () => Rows[],
+    isEmpty: () => boolean,
+    isNotEmpty: () => boolean,
     getColumns: () => Column[],
     applyFilter: (column: Column, value: any) => void,
     applyOrderBy: (orderBy: OrderBy) => void,
@@ -168,6 +175,7 @@ export type Methods = {
     getSummarizedValue: (column: Column, onlyIsChecked: boolean = true) => any,
     getSelectedRadioRow: () => Row | null,
     clearRadioRowSelection: () => void,
+    clearCheckedRows: () => void,
     setSelectedRadioRow: (row: Row) => void,
 }
 

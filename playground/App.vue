@@ -19,7 +19,7 @@ body {
 
 <script lang="ts">
 import {Component} from "@vue/runtime-core";
-import type {Row, SparkGridConfig} from "..";
+import {CellContent, Column, GridComponent, Row, SparkGridConfig} from "..";
 import {GridSearchType} from "../src";
 
 export function pushSafe(obj, property, value): void {
@@ -52,6 +52,28 @@ export default {
                 onRowUnchecked: (row: Row) => spliceSafe(this, "ids", row.id),
                 isRowChecked: (row: Row) => this.ids && this.ids.indexOf(row.id) !== -1,
                 checkboxEnabled: true,
+
+                onBeforeCellStyleMounted: (value: CellContent, column: Column, row: Row, grid: GridComponent) => {
+                    if (row._isChecked || row._isRadioChecked) {
+                        return {
+                            'background-color': 'red !important',
+                            'color': 'white !important'
+                        }
+                    }
+
+                    return {}
+                },
+
+                onBeforeCheckboxAndRadioButtonStyleMounted: (row: Row, grid: GridComponent) => {
+                    if (row._isChecked || row._isRadioChecked) {
+                        return {
+                            'background-color': 'red !important',
+                            'color': 'white !important'
+                        }
+                    }
+
+                    return {}
+                },
 
                 columns: [
                     {name: "id", label: "Id"},

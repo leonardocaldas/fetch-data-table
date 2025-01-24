@@ -21,8 +21,8 @@
                 Exibindo {{ beginningRows() }} a {{ endingRows() }} de {{ grid.totalRows }} registro(s)
             </span>
 
-            <span class="spark-grid-selected-rows" v-if="grid.config.checkboxEnabled">
-                <span v-if="selectedRowsLength > 0">{{ selectedRowsLength }} registro(s) selecionado(s)</span>
+            <span class="spark-grid-selected-rows">
+                <span v-if="selectedRowsLength > 0 && grid.config.checkboxEnabled">{{ selectedRowsLength }} registro(s) selecionado(s)</span>
             </span>
 
             <ul>
@@ -92,7 +92,7 @@ const hasPreviousPage = () => props.grid.currentPage > 1
 const hasNextPage = () => props.grid.currentPage < totalPages()
 
 const paginate = (page: number) => props.grid.paginate(page, props.grid.rowsPerPage)
-const rowsPerPageChanged = (rowsPerPage: number) => props.grid.paginate(props.grid.currentPage, rowsPerPage)
+const rowsPerPageChanged = (rowsPerPage: number) => props.grid.paginate(1, rowsPerPage)
 
 const isRowsPerPageVisible = computed(() => props.grid.config.isRowsPerPageVisible ?? true)
 

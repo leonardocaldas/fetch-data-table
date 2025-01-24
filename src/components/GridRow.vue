@@ -8,7 +8,7 @@
             :key="row._uuid"
             v-if="props.grid.config.checkboxEnabled"
             :row="row"
-            :disabled="props.grid.config.checkboxDisabled"
+            :grid="props.grid"
             @change="onRowChecked"
         />
 

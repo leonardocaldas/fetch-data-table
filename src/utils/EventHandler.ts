@@ -28,13 +28,41 @@ export class EventHandler {
             }
         }
 
-        this.rows = rows
+        this.rows = [...rows]
 
         return rows
     }
 
+    static isEmpty(this: GridComponent): boolean {
+        return this.getRows().length === 0
+    }
+
+    static isNotEmpty(this: GridComponent): boolean {
+        return this.getRows().length > 0
+    }
+
+    static addRow(this: GridComponent, row: Row): void {
+        this.setRows([...this.getRows(), {...row}])
+    }
+
+    static updateRow(this: GridComponent, uuid: string, row: Row): void {
+        this.rows = this.getRows().map((currentRow: Row) => {
+            if (currentRow._uuid == uuid) {
+                currentRow = {...currentRow, ...row}
+            }
+
+            return currentRow
+        })
+    }
+
     static clearRows(this: GridComponent): void {
         this.rows = []
+    }
+
+    static removeRow(this: GridComponent, uuid: string): void {
+        const newRows = this.getRows().filter((row: Row) => row._uuid != uuid)
+
+        this.setRows(newRows)
     }
 
     static getRows(this: GridComponent): Row[] {

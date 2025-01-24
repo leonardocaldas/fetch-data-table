@@ -58,7 +58,7 @@ export class GridStyler {
     }
 
     static getActionRowColumn(grid: GridComponent): object {
-        const width = grid.config.actionsWidth ?? "60px";
+        const width = GridStyler.calculateActionsWidth(grid);
 
         return {
             "width": width,
@@ -71,6 +71,10 @@ export class GridStyler {
         }
     }
 
+    static calculateActionsWidth(grid: GridComponent): string | number {
+        return grid.config.actionsWidth ?? `${((grid.config.actions?.length ?? 0) * 50) + 50}px`
+    }
+
     static calculateColumnWidth(grid: GridComponent): string {
         let columnsCount = grid.getColumns()
             .filter((c: Column) => !c.width)
@@ -79,7 +83,11 @@ export class GridStyler {
 
         if (grid.config.actions) {
             columnsCount += 1;
-            actionsWidth = parseInt((grid.config.actionsWidth ?? 60).toString().replace(/\D/g, ""));
+            actionsWidth = parseInt(
+                GridStyler.calculateActionsWidth(grid)
+                    .toString()
+                    .replace(/\D/g, "")
+            )
         }
 
         const totalWidthPixels = grid.getColumns()
