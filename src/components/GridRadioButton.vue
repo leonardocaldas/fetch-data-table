@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-cell" :style="GridStyler.getCheckboxColumnStyles()">
+    <div class="grid-cell" :style="columnStyle()">
         <div class="choice">
             <span :class="{'checked': row._isRadioChecked}">
                 <input
@@ -26,6 +26,18 @@ const props = defineProps<{
     grid: GridComponent
     disabled?: boolean
 }>()
+
+const columnStyle = () => {
+    const style = GridStyler.getCheckboxColumnStyles()
+
+    if (props.grid.config.onBeforeCheckboxAndRadioButtonStyleMounted) {
+        const newStyle = props.grid.config.onBeforeCheckboxAndRadioButtonStyleMounted(props.row, props.grid)
+
+        return {...style, ...newStyle}
+    }
+
+    return style
+}
 
 const emits = defineEmits(['selected'])
 </script>
